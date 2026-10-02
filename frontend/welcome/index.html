@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<!-- 矿地智预 MineGeoAI-Pre · 演示导航页 · by zhuoer mengzhuoda · 9.20 -->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="zhuoer mengzhuoda">
+<title>矿地智预 MineGeoAI-Pre · 演示导航</title>
+<style>
+  :root{
+    --paper:#eaf3e4; --card:#f4faf0; --card-2:#ffffff;
+    --ink:#17251b; --ink2:#42544a; --ink3:#7d9179;
+    --line:#cfe0c6; --accent:#4f46e5; --green:#059669;
+    --shadow:0 10px 30px rgba(23,37,27,.10), 0 2px 8px rgba(23,37,27,.06);
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:"Segoe UI","Microsoft YaHei","PingFang SC",system-ui,sans-serif;
+    background:
+      radial-gradient(900px 420px at 85% -10%, rgba(79,70,229,.08), transparent 60%),
+      radial-gradient(700px 380px at -10% 20%, rgba(5,150,105,.10), transparent 60%),
+      var(--paper);
+    color:var(--ink); min-height:100vh;
+  }
+  .wrap{max-width:1060px; margin:0 auto; padding:0 20px 56px}
+
+  /* ── 顶栏 ── */
+  .top{display:flex; align-items:center; gap:12px; padding:20px 0 6px}
+  .top img{width:38px; height:38px; object-fit:contain}
+  .top b{font-size:18px; letter-spacing:.5px}
+  .top span{font-size:12.5px; color:var(--ink3)}
+  .top .ver{margin-left:auto; font-size:12px; color:var(--ink3);
+    border:1px solid var(--line); border-radius:999px; padding:4px 12px; background:var(--card)}
+
+  /* ── Hero ── */
+  .hero{padding:26px 0 8px; text-align:center}
+  .hero h1{font-size:clamp(26px,4.6vw,40px); letter-spacing:1px}
+  .hero h1 em{font-style:normal; color:var(--accent)}
+  .hero p{margin:12px auto 0; max-width:720px; color:var(--ink2); font-size:14.5px; line-height:1.9}
+  .badges{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:18px}
+  .badge{font-size:12.5px; color:var(--ink2); background:var(--card);
+    border:1px solid var(--line); border-radius:999px; padding:6px 14px}
+  .badge i{font-style:normal; color:var(--green); font-weight:700; margin-right:6px}
+
+  /* ── 视频卡 ── */
+  .video-card{margin-top:26px; background:var(--card); border:1px solid var(--line);
+    border-radius:18px; box-shadow:var(--shadow); overflow:hidden}
+  .video-head{display:flex; align-items:center; gap:10px; padding:16px 20px 10px}
+  .video-head h2{font-size:16px}
+  .video-head span{font-size:12.5px; color:var(--ink3)}
+  .video-card video{display:block; width:100%; max-height:560px; background:#0e1512}
+
+  /* ── 入口双卡 ── */
+  .entries{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:26px}
+  @media (max-width:760px){ .entries{grid-template-columns:1fr} }
+  .entry{display:block; text-decoration:none; color:inherit; background:var(--card-2);
+    border:1px solid var(--line); border-radius:18px; padding:22px 22px 18px;
+    box-shadow:var(--shadow); transition:transform .18s ease, box-shadow .18s ease, border-color .18s}
+  .entry:hover{transform:translateY(-4px); box-shadow:0 16px 36px rgba(23,37,27,.14); border-color:#b9d3ae}
+  .entry .ic{width:46px; height:46px; border-radius:13px; display:flex; align-items:center;
+    justify-content:center; margin-bottom:14px}
+  .entry .ic svg{width:24px; height:24px}
+  .entry.pc .ic{background:linear-gradient(135deg,#4f46e5,#7c6cf5)}
+  .entry.mo .ic{background:linear-gradient(135deg,#059669,#34d399)}
+  .entry h3{font-size:17px; margin-bottom:6px}
+  .entry h3 small{font-weight:400; color:var(--ink3); font-size:12px; margin-left:8px}
+  .entry p{font-size:13px; color:var(--ink2); line-height:1.8}
+  .entry .go{display:inline-flex; align-items:center; gap:6px; margin-top:12px;
+    font-size:13px; font-weight:600; color:var(--accent)}
+  .entry:hover .go .arr{transform:translateX(4px)}
+  .entry .arr{transition:transform .18s}
+
+  /* ── 使用说明 ── */
+  .guide{margin-top:26px; background:var(--card); border:1px solid var(--line);
+    border-radius:18px; box-shadow:var(--shadow); padding:22px}
+  .guide h2{font-size:16px; margin-bottom:14px}
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+  @media (max-width:760px){ .steps{grid-template-columns:1fr} }
+  .step{background:var(--card-2); border:1px solid var(--line); border-radius:14px; padding:16px}
+  .step b{display:flex; align-items:center; gap:8px; font-size:14px; margin-bottom:8px}
+  .step b i{font-style:normal; width:22px; height:22px; border-radius:50%; background:var(--accent);
+    color:#fff; font-size:12px; display:flex; align-items:center; justify-content:center; flex:none}
+  .step p{font-size:12.5px; color:var(--ink2); line-height:1.8}
+  .step code{background:rgba(79,70,229,.08); color:var(--accent); border-radius:6px;
+    padding:1px 7px; font-size:12px}
+  .tips{margin-top:14px; display:grid; gap:8px}
+  .tip{font-size:12.5px; color:var(--ink2); background:rgba(5,150,105,.06);
+    border:1px dashed #b9d3ae; border-radius:10px; padding:9px 13px; line-height:1.7}
+  .tip b{color:var(--green)}
+
+  /* ── 下载区 ── */
+  .dl{margin-top:26px; background:var(--card); border:1px solid var(--line);
+    border-radius:18px; box-shadow:var(--shadow); padding:22px}
+  .dl h2{font-size:16px; margin-bottom:4px}
+  .dl .sub{font-size:12.5px; color:var(--ink3); margin-bottom:14px}
+  .dl-row{display:flex; align-items:center; gap:14px; background:var(--card-2);
+    border:1px solid var(--line); border-radius:14px; padding:14px 16px; margin-bottom:10px}
+  .dl-row:last-of-type{margin-bottom:0}
+  .dl-row .ic{width:40px; height:40px; border-radius:11px; display:flex; align-items:center;
+    justify-content:center; flex:none}
+  .dl-row .ic svg{width:21px; height:21px}
+  .dl-row .ic.w{background:linear-gradient(135deg,#0ea5e9,#38bdf8)}
+  .dl-row .ic.l{background:linear-gradient(135deg,#f59e0b,#fbbf24)}
+  .dl-row .ic.s{background:linear-gradient(135deg,#64748b,#94a3b8)}
+  .dl-row .info{flex:1; min-width:0}
+  .dl-row .info b{font-size:14px; display:block}
+  .dl-row .info span{font-size:12px; color:var(--ink2); line-height:1.6; display:block; margin-top:2px}
+  .dl-row .size{font-size:12px; color:var(--ink3); flex:none}
+  .dl-row a.btn-dl{flex:none; text-decoration:none; font-size:13px; font-weight:600;
+    color:#fff; background:var(--accent); border-radius:10px; padding:9px 18px;
+    transition:transform .15s, box-shadow .15s}
+  .dl-row a.btn-dl:hover{transform:translateY(-2px); box-shadow:0 8px 20px rgba(79,70,229,.35)}
+  .dl .fine{margin-top:12px; font-size:11.5px; color:var(--ink3); line-height:1.8}
+  .dl .fine a{color:var(--accent)}
+  @media (max-width:640px){
+    .dl-row{flex-wrap:wrap}
+    .dl-row a.btn-dl{width:100%; text-align:center}
+  }
+
+  /* ── 底部 ── */
+  .foot{margin-top:30px; text-align:center; color:var(--ink3); font-size:12px; line-height:2}
+  .foot a{color:var(--ink2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <img src="/assets/logo.png" alt="LOGO">
+    <div><b>矿地智预</b><br><span>MineGeoAI-Pre · 矿区土地利用智能预测系统</span></div>
+    <div class="ver">v1.2.0 演示</div>
+  </div>
+
+  <div class="hero">
+    <h1>矿区土地利用与<em>生态修复</em>的智能预测系统</h1>
+    <p>基于 20 年 Landsat 时序遥感数据与改良 CLUE-S + CA-Markov 融合模型，贯通「数据预处理 → 采矿用地识别 → 土地利用分类 → 变化分析 → 多情景预测 → 精度验证 → 标准化报告」完整业务闭环，为矿山监管、生态修复与开采规划提供量化、可视化的科学决策依据。</p>
+    <div class="badges">
+      <span class="badge"><i>✓</i>平朔矿区 65 km² 真实数据</span>
+      <span class="badge"><i>✓</i>多情景预测 · 4 情景 12 参数</span>
+      <span class="badge"><i>✓</i>独立验证 Kappa 0.753</span>
+      <span class="badge"><i>✓</i>全流程可离线</span>
+    </div>
+  </div>
+
+  <div class="entries">
+    <a class="entry pc" href="/?u=admin&p=123">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <h3>电脑完整版<small>桌面工作台</small></h3>
+      <p>窗口化桌面系统：系统概览、数据管理（时间轴 / 两期对比 / 交互地图）、分类、变化分析、多情景预测、报告生成、图图 AI 助手等 12 个应用全部在此。建议投屏演示使用。已为您预填演示账号，进入后点「登录」即可。</p>
+      <span class="go">进入桌面版 <span class="arr">→</span></span>
+    </a>
+    <a class="entry mo" href="/m/?p=123">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18.5h2"/></svg></div>
+      <h3>手机版<small>移动端 /m/</small></h3>
+      <p>与桌面同一后端的移动版：概览 / 数据 / 图图 / 功能 / 我的五个标签覆盖全部 12 个应用，手机浏览器打开即是完整功能，还可用相机拍照直接做图像检测。已为您预填演示密码。</p>
+      <span class="go">进入手机版 <span class="arr">→</span></span>
+    </a>
+  </div>
+
+  <div class="video-card">
+    <div class="video-head">
+      <h2>90 秒看懂矿地智预</h2>
+      <span>介绍视频 · 含配音 · 建议横屏全屏观看</span>
+    </div>
+    <video controls preload="metadata" poster="poster.jpg" src="intro.mp4"></video>
+  </div>
+
+  <div class="guide">
+    <h2>使用说明</h2>
+    <div class="steps">
+      <div class="step">
+        <b><i>1</i>选择入口</b>
+        <p>电脑或平板建议进 <code>电脑完整版</code>；手机直接进 <code>手机版</code>（两个入口共用同一账号与数据）。</p>
+      </div>
+      <div class="step">
+        <b><i>2</i>登录系统</b>
+        <p>演示账号 <code>admin / 123</code>（超级管理员）。正式环境请务必在「系统设置 → 用户管理」中修改默认密码。</p>
+      </div>
+      <div class="step">
+        <b><i>3</i>推荐演示动线</b>
+        <p>系统概览 → 数据管理（时间轴播放）→ 变化分析 → 预测建模（四情景对比）→ 报告生成 → 图图问答。</p>
+      </div>
+    </div>
+    <div class="tips">
+      <div class="tip"><b>关于数据：</b>内置「平朔矿区（真实）」数据集（CLCD 30 m 土地覆被 + DEM + 光谱指数，65.15 km²）与两个合成示范数据集；真实数据集的已知局限见 README 说明。</div>
+      <div class="tip"><b>关于 AI 助手图图：</b>回答会注入当前矿区真实统计与 30 节地信遥感知识库摘录，数字与数据库逐条核对，对不上会标注「未核实」。演示环境使用云端模型推理，本地部署版可完全离线、数据不出本机。</div>
+      <div class="tip"><b>关于部署：</b>本页所在服务器为云演示环境；软件另有 Windows 离线完整版（内置 Python 运行时与本地模型，无需联网安装）。</div>
+    </div>
+  </div>
+
+  <div class="dl">
+    <h2>离线安装包下载</h2>
+    <div class="sub">同一套软件的三种交付形态 · 全部可离线运行 · 下载前可核对 MD5 校验值</div>
+    <div class="dl-row">
+      <div class="ic w"><svg viewBox="0 0 24 24" fill="#fff"><path d="M3 5.5 10.5 4.4v7.1H3V5.5zm9-1.2L21 3v8.5h-9V4.3zM3 12.5h7.5v7.1L3 18.5v-6zm9 0h9V21l-9-1.3v-7.2z"/></svg></div>
+      <div class="info">
+        <b>Windows 离线完整版（推荐）</b>
+        <span>内置 Python 运行时与本地 AI 模型，解压后双击「启动系统.bat」即用——无需安装 Python、无需联网。Windows 10/11 64 位。</span>
+      </div>
+      <span class="size">1.24 GB</span>
+      <a class="btn-dl" href="/downloads/矿地智预-v1.2.0.zip" download>下载</a>
+    </div>
+    <div class="dl-row">
+      <div class="ic l"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12v16H6z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div>
+      <div class="info">
+        <b>Linux 部署包</b>
+        <span>Ubuntu 22.04+ / Debian 12 源码部署包，内置「一键部署.sh」（venv + 依赖 + systemd 开机自启，监听 0.0.0.0:8321）。适合云服务器与开发者环境。</span>
+      </div>
+      <span class="size">36 MB</span>
+      <a class="btn-dl" href="/downloads/矿地智预-v1.2.0-linux.tar.gz" download>下载</a>
+    </div>
+    <div class="dl-row">
+      <div class="ic s"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="8" rx="2"/><rect x="2" y="13" width="20" height="8" rx="2"/><path d="M6 7h.01M6 17h.01"/></svg></div>
+      <div class="info">
+        <b>云服务器专版（Windows Server）</b>
+        <span>已去掉本地模型、默认监听 0.0.0.0、预置云端 AI 方案，附一键初始化与防火墙脚本。2核4G 云服务器演示推荐。</span>
+      </div>
+      <span class="size">174 MB</span>
+      <a class="btn-dl" href="/downloads/矿地智预-v1.2.0-server.zip" download>下载</a>
+    </div>
+    <div class="fine">
+      大文件建议使用下载工具或右键「另存为」；下载后可用 <a href="/downloads/checksums.txt" target="_blank">MD5 校验值</a> 核对文件完整性。
+      Windows 版含 1 GB 本地 AI 模型，如仅需在线演示可直接使用本页顶部入口。
+    </div>
+  </div>
+
+  <div class="foot">
+    矿地智预 MineGeoAI-Pre · by zhuoer mengzhuoda · 9.20<br>
+    数据来源：CLCD 中国土地覆被数据集 · Copernicus DEM · Landsat 系列影像 · 全国矿业权公示信息
+  </div>
+
+</div>
+</body>
+</html>

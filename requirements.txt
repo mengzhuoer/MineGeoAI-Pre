@@ -1,0 +1,19 @@
+# Core service
+fastapi
+uvicorn
+psutil
+
+# Prediction & identification
+numpy
+scipy
+scikit-learn
+rasterio
+pyproj
+shapely
+
+# Local LLM (Qwen2.5-1.5B-Instruct GGUF)
+llama-cpp-python
+
+# Reports & imagery
+python-docx
+Pillow

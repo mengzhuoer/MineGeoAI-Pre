@@ -1,0 +1,30 @@
+# --- private / generated ---
+__pycache__/
+*.pyc
+*.db
+*.sqlite*
+uploads/
+reports/
+backend/data/reports/
+backend/models/
+*.gguf
+frontend/downloads/
+
+# --- environments & builds ---
+venv/
+.venv/
+env/
+dist/
+build/
+*.zip
+*.tar
+
+# --- IDE / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- secrets ---
+.env
+config.local.*

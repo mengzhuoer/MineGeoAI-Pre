@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+title: MineGeoAI-Pre - an offline-first desktop system for multi-scenario land-use prediction in open-pit mining regions
+message: >-
+  If you use this software, please cite it using the metadata below.
+type: software
+authors:
+  - name: MineGeoAI-Pre Development Team
+version: 1.0.0
+date-released: "2026-10-02"
+license: MIT
+repository-code: "https://github.com/mengzhuoer/MineGeoAI-Pre"
+abstract: >-
+  MineGeoAI-Pre turns open geodata (CLCD annual land cover, Copernicus DEM,
+  Landsat-based spectral indices) into 30 m multi-scenario land-use predictions
+  for open-pit mining regions. It runs fully offline on a 4 GB office PC,
+  generates the mining land-use class missing from public land-cover products,
+  and couples prediction with an offline retrieval-augmented AI assistant.
+keywords:
+  - land-use change
+  - mining
+  - cellular automata
+  - CLUE-S
+  - local LLM
+  - reproducibility

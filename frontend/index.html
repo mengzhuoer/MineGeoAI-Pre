@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!-- 矿地智预 MineGeoAI-Pre · by zhuoer mengzhuoda · 9.20 -->
+<html lang="zh-CN">
+<!-- 作者：zhuoer mengzhuoda · 矿地智预 MineGeoAI-Pre v1.0 · 9.20 -->
+<meta name="author" content="zhuoer mengzhuoda">
+<meta name="generator" content="MineGeoAI-Pre v1.0">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>矿地智预 MineGeoAI-Pre · 矿区土地利用智能预测系统</title>
+  <link rel="stylesheet" href="vendor/leaflet.css">
+  <link rel="stylesheet" href="css/app.css?v=8.4">
+  <link rel="stylesheet" href="css/desktop.css?v=8.4">
+  <link rel="stylesheet" href="css/icons-liquid.css?v=8.4">
+  <link rel="stylesheet" href="css/anim.css?v=8.3">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+</head>
+<body>
+  <script>
+    /* 偏好值来自 localStorage，而云端同步回来的可能被 JSON 字符串化过（值里带引号，如 "saas"），
+       直接写进 data-* 会让 CSS 的 [data-theme="saas"] 全部匹配不上——主题、毛玻璃会静默失效。
+       这里统一剥掉包裹引号再写，是"毛玻璃开关明明开着却没效果"那类问题的根治点。 */
+    const _pref = (key, fallback) => {
+      let v = localStorage.getItem(key);
+      if (v === null || v === "") return fallback;
+      return String(v).trim().replace(/^"+|"+$/g, "");
+    };
+    document.body.dataset.theme = _pref("kdzy_theme", "saas");
+    // 一次性迁移：全新设计系统上线（Lucide 图标 + 柔和贴片），首次自动切换
+    if (!localStorage.getItem("kdzy_icons_v3")) {
+      localStorage.setItem("kdzy_icons", "soft");
+      localStorage.setItem("kdzy_icons_v3", "1");
+    }
+    // 一次性迁移：换用 AI 生成的实心科技位图图标（旧的四套风格仍可在系统设置里切回）
+    if (!localStorage.getItem("kdzy_icons_tech")) {
+      localStorage.setItem("kdzy_icons", "tech");
+      localStorage.setItem("kdzy_icons_tech", "1");
+    }
+    document.body.dataset.icons = _pref("kdzy_icons", "tech");
+    document.body.dataset.iconsize = _pref("kdzy_iconsize", "md");
+    document.body.dataset.glass = _pref("kdzy_glass", "1") === "0" ? "0" : "1";
+    document.body.dataset.iconlabel = _pref("kdzy_iconlabel", "auto");
+  </script>
+  <script>
+    // 手机/平板直接进移动版（触屏 + 窄屏双重判断，桌面浏览器拖窄不会误跳）；
+    // 想留在桌面版加 ?desktop=1
+    (function () {
+      if (location.search.indexOf("desktop=1") >= 0) return;
+      var touch = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+      if (touch && innerWidth <= 900) location.replace("/m/");
+    })();
+  </script>
+  <div id="app"></div>
+
+  <script src="vendor/vue.global.prod.js?v=8.3"></script>
+  <script src="vendor/echarts.min.js?v=8.3"></script>
+  <script src="vendor/leaflet.js?v=8.3"></script>
+  <script src="js/app.js?v=8.7"></script>
+</body>
+</html>

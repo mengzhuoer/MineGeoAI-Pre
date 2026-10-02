@@ -1,0 +1,189 @@
+/* 矿地智预 MineGeoAI-Pre · by zhuoer mengzhuoda · 9.20 */
+/* ============================================================
+   图标风格（图标本体为 Lucide 开源图标库，ISC 协议）
+   ------------------------------------------------------------
+   soft    柔和贴片（默认）：CasaOS 式柔和渐变圆角贴片 + 白色图形
+   harmony 鸿蒙雅致：白底细边 + 彩色图形
+   line    线性经典：透明底 + 强调色图形
+   liquid  液态玻璃：半透明玻璃贴片 + 背景折射
+   ============================================================ */
+
+/* ── 图标贴片通用 ── */
+.app-tile, .dock-tile {
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  transition: transform .3s cubic-bezier(0.34, 1.45, 0.5, 1), box-shadow .3s ease;
+}
+.app-tile svg, .dock-tile svg { position: relative; z-index: 1; }
+
+/* ============================================================
+   ① 柔和贴片（CasaOS 风格 · 默认）
+   ============================================================ */
+body[data-icons="soft"] .app-tile:not(.demo-tile),
+body[data-icons="soft"] .dock-tile:not(.demo-tile) {
+  border-radius: 26%;
+  background: linear-gradient(160deg, var(--sf-a, #8ab4f8), var(--sf-b, #3b6fd4));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),   /* 顶部柔和高光 */
+    0 2px 7px rgba(15, 23, 42, 0.16),          /* 柔和投影 */
+    0 0 0 1px rgba(15, 23, 42, 0.045);         /* 极细描边收形 */
+}
+body[data-icons="soft"] .app-tile svg,
+body[data-icons="soft"] .dock-tile svg {
+  filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.25));
+}
+body[data-icons="soft"] .desk-icon:hover .app-tile,
+body[data-icons="soft"] .tk-app:hover .dock-tile {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 7px 16px rgba(15, 23, 42, 0.24),
+    0 0 0 1px rgba(15, 23, 42, 0.05);
+}
+
+/* 各应用柔和渐变（低饱和、久看不腻） */
+body[data-icons="soft"] .app-grad-home       { --sf-a: #74a9ff; --sf-b: #2563eb; }
+body[data-icons="soft"] .app-grad-data       { --sf-a: #5cd98d; --sf-b: #15803d; }
+body[data-icons="soft"] .app-grad-preprocess { --sf-a: #fbc564; --sf-b: #c47307; }
+body[data-icons="soft"] .app-grad-classify   { --sf-a: #b39aff; --sf-b: #6d28d9; }
+body[data-icons="soft"] .app-grad-change     { --sf-a: #fb8cc4; --sf-b: #db2777; }
+body[data-icons="soft"] .app-grad-predict    { --sf-a: #5eead4; --sf-b: #0e7490; }
+body[data-icons="soft"] .app-grad-files      { --sf-a: #f6d365; --sf-b: #b37408; }
+body[data-icons="soft"] .app-grad-report     { --sf-a: #a8b6c8; --sf-b: #475569; }
+body[data-icons="soft"] .app-grad-settings   { --sf-a: #c3cedb; --sf-b: #64748b; }
+body[data-icons="soft"] .app-grad-detect     { --sf-a: #fca5a5; --sf-b: #b91c1c; }
+
+/* ============================================================
+   ④ 液态玻璃（简化版：半透明 + 折射，图形统一 Lucide）
+   ============================================================ */
+body[data-icons="liquid"] .app-tile:not(.demo-tile),
+body[data-icons="liquid"] .dock-tile:not(.demo-tile) {
+  position: relative; overflow: hidden;
+  border-radius: 26%;
+  background:
+    linear-gradient(150deg, rgba(255,255,255,.34), rgba(255,255,255,.06)),
+    var(--lg-b, rgba(45, 90, 170, 0.75));
+  backdrop-filter: blur(12px) saturate(1.7);
+  -webkit-backdrop-filter: blur(12px) saturate(1.7);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+    0 5px 14px rgba(15, 23, 42, 0.2);
+}
+body[data-icons="liquid"] .app-tile:not(.demo-tile)::after,
+body[data-icons="liquid"] .dock-tile:not(.demo-tile)::after {
+  content: ""; position: absolute; inset: -22%;
+  background: linear-gradient(112deg,
+    transparent 36%, rgba(255,255,255,.45) 47%, rgba(255,255,255,.12) 54%, transparent 66%);
+  transform: translateX(-135%);
+  transition: transform .75s cubic-bezier(0.25, 0.9, 0.3, 1);
+  pointer-events: none;
+}
+body[data-icons="liquid"] .desk-icon:hover .app-tile::after,
+body[data-icons="liquid"] .tk-app:hover .dock-tile::after { transform: translateX(135%); }
+body[data-icons="liquid"] .app-tile svg,
+body[data-icons="liquid"] .dock-tile svg {
+  filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.3));
+}
+
+body[data-icons="liquid"] .app-grad-home       { --lg-b: rgba(37, 99, 235, .82); }
+body[data-icons="liquid"] .app-grad-data       { --lg-b: rgba(21, 128, 61, .82); }
+body[data-icons="liquid"] .app-grad-preprocess { --lg-b: rgba(196, 115, 7, .82); }
+body[data-icons="liquid"] .app-grad-classify   { --lg-b: rgba(109, 40, 217, .82); }
+body[data-icons="liquid"] .app-grad-change     { --lg-b: rgba(219, 39, 119, .82); }
+body[data-icons="liquid"] .app-grad-predict    { --lg-b: rgba(14, 116, 144, .82); }
+body[data-icons="liquid"] .app-grad-files      { --lg-b: rgba(179, 116, 8, .82); }
+body[data-icons="liquid"] .app-grad-report     { --lg-b: rgba(71, 85, 105, .82); }
+body[data-icons="liquid"] .app-grad-settings   { --lg-b: rgba(100, 116, 139, .82); }
+body[data-icons="liquid"] .app-grad-detect     { --lg-b: rgba(185, 28, 28, .82); }
+
+/* ============================================================
+   ⑤ 实心科技贴片（Seedream 5.0 Pro 生成位图 · 11 个应用 + 助手用 LOGO）
+   ------------------------------------------------------------
+   位图本身已含贴片底色与浅色实心符号（macOS squircle 轮廓 +
+   Material 同色系明度分层 + Adwaita 几何隐喻），所以这一路只做两件事：
+   把图铺进图标槽、把原来的内联 SVG 隐藏——不再叠 CSS 渐变，
+   否则会出现"图里一层贴片、图外又一层贴片"。
+   ============================================================ */
+body[data-icons="tech"] [data-appid="home"]        { --tech-ico: url("../assets/icons/tech/home-256.png?v=7.5"); }
+body[data-icons="tech"] [data-appid="data"]        { --tech-ico: url("../assets/icons/tech/data-256.png?v=7.5"); }
+body[data-icons="tech"] [data-appid="preprocess"]  { --tech-ico: url("../assets/icons/tech/preprocess-256.png?v=7.5"); }
+body[data-icons="tech"] [data-appid="classify"]    { --tech-ico: url("../assets/icons/tech/classify-256.png?v=7.5"); }
+body[data-icons="tech"] [data-appid="change"]      { --tech-ico: url("../assets/icons/tech/change-256.png?v=7.5"); }
+body[data-icons="tech"] [data-appid="predict"]     { --tech-ico: url("../assets/icons/tech/predict-256.png?v=7.5"); }
+body[data-icons="tech"] [data-appid="ai-settings"] { --tech-ico: url("../assets/icons/tech/ai-settings-256.png?v=7.5"); }
+body[data-icons="tech"] [data-appid="detect"]      { --tech-ico: url("../assets/icons/tech/detect-256.png?v=7.5"); }
+body[data-icons="tech"] [data-appid="files"]       { --tech-ico: url("../assets/icons/tech/files-256.png?v=7.5"); }
+body[data-icons="tech"] [data-appid="report"]      { --tech-ico: url("../assets/icons/tech/report-256.png?v=7.5"); }
+body[data-icons="tech"] [data-appid="settings"]    { --tech-ico: url("../assets/icons/tech/settings-256.png?v=7.5"); }
+/* AI 助手沿用项目 LOGO：这套图标就没给它出图（见记忆 kuangdi-zhiyu-icon-set） */
+body[data-icons="tech"] [data-appid="assistant"]   { --tech-ico: url("../assets/logo-256.png?v=7.5"); }
+
+body[data-icons="tech"] .app-tile,
+body[data-icons="tech"] .dock-tile,
+body[data-icons="tech"] .qe-icon,
+body[data-icons="tech"] .sm-ic,
+body[data-icons="tech"] .wt-ic {
+  background: var(--tech-ico, none) center / contain no-repeat;
+  box-shadow: none;                 /* 不再画矩形阴影（会从超椭圆四角漏出来） */
+  border-radius: 0;
+  /* 位图已切成透明底，投影改由 CSS 跟随图标轮廓生成 */
+  filter: drop-shadow(0 2px 5px rgba(20, 32, 24, 0.22));
+}
+/* 小尺寸槽位投影弱一点，避免糊成一团 */
+body[data-icons="tech"] .wt-ic,
+body[data-icons="tech"] .sm-ic { filter: drop-shadow(0 1px 2px rgba(20, 32, 24, 0.2)); }
+body[data-icons="tech"] .app-tile .ic,
+body[data-icons="tech"] .dock-tile .ic,
+body[data-icons="tech"] .qe-icon .ic,
+body[data-icons="tech"] .sm-ic .ic,
+body[data-icons="tech"] .wt-ic .ic { display: none; }
+
+/* 小尺寸槽位：位图是"整块贴片"，缩到 22px 会看不清符号，所以放大一点 */
+body[data-icons="tech"] .win-titlebar .wt-ic { width: 18px; height: 18px; }
+body[data-icons="tech"] .sm-app .sm-ic { width: 34px; height: 34px; margin: 0 auto; }
+
+/* 悬停：矩形投影换成跟随图标轮廓的投影（贴片是超椭圆，矩形阴影会漏边） */
+body[data-icons="tech"] .desk-icon:hover .app-tile,
+body[data-icons="tech"] .tk-app:hover .dock-tile,
+body[data-icons="tech"] .qe-live:hover .qe-icon { box-shadow: none; }
+body[data-icons="tech"] .tk-app:hover .dock-tile { filter: drop-shadow(0 8px 14px rgba(20, 32, 24, 0.32)); }
+
+/* ============================================================
+   设置页：四种风格的预览贴片（固定样式）
+   ============================================================ */
+.demo-tile { position: relative; overflow: hidden; }
+.demo-soft {
+  border-radius: 26% !important;
+  background: linear-gradient(160deg, #74a9ff, #2563eb) !important;
+  color: #fff !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.34), 0 2px 7px rgba(15,23,42,.16) !important;
+}
+.demo-harmony {
+  border-radius: 26% !important;
+  background: #e8f0fe !important; color: #2563eb !important;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.06), 0 2px 6px rgba(15,23,42,.1) !important;
+}
+.demo-line {
+  border-radius: 26% !important;
+  background: transparent !important; color: var(--green) !important;
+  box-shadow: inset 0 0 0 1.5px var(--line-2) !important;
+}
+.demo-liquid {
+  border-radius: 26% !important;
+  background: linear-gradient(150deg, rgba(255,255,255,.34), rgba(37,99,235,.82)) !important;
+  color: #fff !important;
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 5px 14px rgba(15,23,42,.2) !important;
+}
+/* 实心科技：用真实的 home 位图做预览（与当前生效风格无关，固定展示） */
+.demo-tech {
+  background: url("../assets/icons/tech/home-256.png?v=7.5") center / contain no-repeat !important;
+  box-shadow: none !important;
+}
+.demo-tech .ic { display: none; }
+
+/* 尊重系统「减少动态效果」偏好 */
+@media (prefers-reduced-motion: reduce) {
+  .app-tile, .dock-tile { transition: none !important; }
+  body[data-icons="liquid"] .app-tile::after { display: none; }
+}

@@ -1,0 +1,297 @@
+/* 矿地智预 MineGeoAI-Pre · by zhuoer mengzhuoda · 9.20 */
+/* ============================================================
+   Apple 风格 · 应用贴片 / 交通灯 / Dock / 控制中心 / 壁纸
+   ============================================================ */
+
+/* 应用贴片（圆角方块渐变） */
+.app-tile {
+  width: 56px; height: 56px; border-radius: 15px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; margin: 0 auto;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 6px 14px rgba(20, 32, 24, 0.28);
+}
+.app-tile svg { width: 26px; height: 26px; }
+.desk-icon:hover .app-tile { transform: translateY(-2px) scale(1.05); }
+.desk-icon .app-tile { transition: transform .3s cubic-bezier(0.34, 1.45, 0.5, 1); will-change: transform; }
+
+.app-grad-home { background: linear-gradient(145deg, #60a5fa, #1d4ed8); }
+.app-grad-data { background: linear-gradient(145deg, #34d399, #047857); }
+.app-grad-preprocess { background: linear-gradient(145deg, #fbbf24, #d97706); }
+.app-grad-classify { background: linear-gradient(145deg, #a78bfa, #6d28d9); }
+.app-grad-change { background: linear-gradient(145deg, #f472b6, #be185d); }
+.app-grad-predict { background: linear-gradient(145deg, #22d3ee, #0e7490); }
+.app-grad-report { background: linear-gradient(145deg, #94a3b8, #334155); }
+.app-grad-settings { background: linear-gradient(145deg, #cbd5e1, #475569); }
+.app-grad-detect { background: linear-gradient(145deg, #f87171, #b91c1c); }
+
+/* 窗口交通灯（左置 · macOS 风格动效） */
+.tl-group { display: flex; align-items: center; gap: 7px; margin-right: 6px; }
+.tl {
+  width: 12.5px; height: 12.5px; border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; padding: 0;
+  transition:
+    transform .22s cubic-bezier(0.34, 1.45, 0.5, 1),
+    filter .18s ease,
+    background .18s ease;
+  will-change: transform;
+}
+.tl svg {
+  width: 8px; height: 8px; color: rgba(0, 0, 0, 0.55);
+  opacity: 0; transform: scale(0.5);
+  transition:
+    opacity .16s ease,
+    transform .26s cubic-bezier(0.34, 1.45, 0.5, 1);
+}
+/* 悬停任意一个灯 → 三个灯同时亮出符号（macOS 细节） */
+.tl-group:hover .tl svg { opacity: 1; transform: scale(1); }
+/* 悬停单个灯：放大增亮 */
+.tl:hover { transform: scale(1.32); filter: brightness(1.12); }
+/* 按下：回弹缩小 */
+.tl:active { transform: scale(0.85); filter: brightness(0.96); }
+.tl-close { background: #ff5f57; } .tl-close:hover { background: #ff4d44; }
+.tl-min { background: #febc2e; } .tl-min:hover { background: #f5b021; }
+.tl-max { background: #28c840; } .tl-max:hover { background: #1fb939; }
+
+/* 失焦窗口：三灯变灰、符号隐藏（点击窗口任意处恢复） */
+.win:not(.focused) .tl-close,
+.win:not(.focused) .tl-min,
+.win:not(.focused) .tl-max { background: #cbd2da; }
+.win:not(.focused) .tl { border-color: rgba(0, 0, 0, 0.08); }
+.win:not(.focused) .tl svg { opacity: 0; transform: scale(0.5); }
+
+/* Dock 化任务栏应用：macOS 式放大，带左右两侧的衰减（±1 挡、±2 挡） */
+.tk-app {
+  padding: 5px 8px 4px; flex-direction: column; gap: 4px;
+  border-radius: 999px; transition: background .18s ease;
+}
+.tk-app:hover { background: transparent; }
+.tk-app .dock-tile {
+  transition: transform .38s cubic-bezier(0.34, 1.5, 0.5, 1), box-shadow .38s ease, filter .38s ease;
+  will-change: transform;
+}
+/* 正在悬停：抬得最高、放得最大，并带一圈高光 */
+.tk-app:hover .dock-tile {
+  transform: translateY(-15px) scale(1.4);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 12px 22px rgba(20, 32, 24, 0.32),
+    0 0 0 2px rgba(255, 255, 255, 0.5);
+  filter: saturate(1.06);
+}
+/* 左右相邻的一挡 */
+.tk-app:has(+ .tk-app:hover) .dock-tile,
+.tk-app:hover + .tk-app .dock-tile { transform: translateY(-7px) scale(1.15); }
+/* 再往外一挡（衰减到很小，让隆起呈丘陵状而不是台阶） */
+.tk-app:has(+ .tk-app + .tk-app:hover) .dock-tile,
+.tk-app:hover + .tk-app + .tk-app .dock-tile { transform: translateY(-3px) scale(1.05); }
+/* 按下：回弹缩小 */
+.tk-app:active .dock-tile { transform: translateY(-9px) scale(1.16); transition-duration: .1s; }
+.dock-tile {
+  width: 46px; height: 46px; border-radius: 13px;
+  display: flex; align-items: center; justify-content: center; color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.38), 0 4px 10px rgba(20, 32, 24, 0.28);
+}
+.dock-tile svg { width: 22px; height: 22px; }
+/* 运行指示点：未激活是小圆点，激活拉成 Windows 11 式小胶囊并发光 */
+.tk-dot {
+  width: 5px; height: 5px; border-radius: 999px;
+  background: var(--ink-3); opacity: .45;
+  transition: width .28s cubic-bezier(0.34, 1.4, 0.5, 1), background .2s ease,
+              opacity .2s ease, box-shadow .2s ease;
+}
+.tk-app.active .tk-dot {
+  width: 15px; background: var(--green); opacity: 1;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.55);
+}
+.tk-app.active { background: transparent; }
+
+/* 托盘按钮：胶囊 Dock 里做成更大的圆形按钮，悬停有轻微上浮 */
+.tray-btn {
+  width: 40px; height: 40px; border-radius: 999px; border: none;
+  background: transparent; color: var(--ink-2); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .18s ease, color .18s ease,
+              transform .26s cubic-bezier(0.34, 1.4, 0.5, 1);
+}
+.tray-btn svg { width: 20px; height: 20px; transition: transform .26s cubic-bezier(0.34, 1.4, 0.5, 1); }
+.tray-btn:hover { background: var(--paper-3); color: var(--ink); transform: translateY(-3px); }
+.tray-btn:hover svg { transform: scale(1.08); }
+.tray-btn:active { transform: translateY(-1px) scale(0.94); }
+.tray-btn.on { background: var(--green-t); color: var(--green-2); }
+
+/* 控制中心（右侧折叠栏） */
+.ctrl-panel {
+  position: fixed; top: 10px; right: 10px; bottom: 104px; width: 312px;
+  background: var(--paper-2); border: 1px solid var(--line-2);
+  border-radius: 14px; box-shadow: 0 24px 70px rgba(20, 32, 24, 0.35);
+  z-index: 6500; display: flex; flex-direction: column;
+  animation: cpIn .22s ease; overflow: hidden;
+}
+@keyframes cpIn { from { transform: translateX(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+.cp-head {
+  display: flex; align-items: center; gap: 8px;
+  padding: 13px 15px; font-size: 13.5px; font-weight: 600; color: var(--ink);
+  border-bottom: 1px solid var(--line); font-family: var(--font-title); letter-spacing: 1px;
+}
+.cp-head svg { width: 15px; height: 15px; color: var(--green); }
+.cp-close {
+  margin-left: auto; width: 26px; height: 26px; border: none; border-radius: 7px;
+  background: transparent; color: var(--ink-2); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.cp-close:hover { background: var(--paper-3); color: var(--ink); }
+.cp-close svg { width: 11px; height: 11px; }
+.cp-body { flex: 1; overflow-y: auto; padding: 13px 16px 16px; }
+.cp-sec {
+  font-size: 11px; color: var(--ink-2); letter-spacing: 2px;
+  margin: 12px 0 9px; padding-bottom: 6px;
+  border-bottom: 1px solid var(--line); font-family: var(--font-note);
+}
+.cp-sec:first-child { margin-top: 2px; }
+.cp-meter { margin-bottom: 11px; }
+.cp-mrow { display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 5px; }
+.cp-mrow b { font-family: var(--font-num); color: var(--green-2); }
+.cp-sub { font-size: 11px; color: var(--ink-3); margin-top: 4px; font-family: var(--mono); }
+.cp-online { display: flex; align-items: baseline; gap: 7px; padding: 9px 0 3px; }
+.cp-online b { font-size: 30px; font-family: var(--font-num); color: var(--green-2); }
+.cp-online span { font-size: 12px; color: var(--ink-2); }
+.cp-note {
+  margin-top: 12px; padding: 9px 11px; border-radius: 8px;
+  font-size: 11.5px; color: var(--ink-2);
+  background: var(--green-t); border: 1px dashed var(--green);
+}
+
+/* 壁纸选择（系统设置） */
+.wall-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.wall-thumb {
+  height: 92px; border-radius: 10px; cursor: pointer; position: relative;
+  border: 2px solid transparent; overflow: hidden;
+  display: flex; align-items: flex-end; padding: 8px;
+  transition: transform .15s;
+}
+.wall-thumb:hover { transform: translateY(-2px); }
+.wall-thumb.active { border-color: var(--green); box-shadow: 0 0 0 2.5px rgba(47, 107, 79, 0.25); }
+.wall-thumb span { font-size: 12px; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.55); }
+.wall-check {
+  position: absolute; top: 6px; right: 6px; width: 20px; height: 20px;
+  border-radius: 50%; background: var(--green); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+}
+.wall-check svg { width: 11px; height: 11px; }
+
+/* 风格预览贴片：固定样式（最高优先级） */
+.demo-tile.demo-apple { background: linear-gradient(145deg, #60a5fa, #1d4ed8) !important; color: #fff !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 4px 12px rgba(20,32,24,.25) !important; }
+.demo-tile.demo-harmony { background: #eef4ff !important; color: #2563eb !important; box-shadow: inset 0 0 0 1px rgba(0,0,0,.06), 0 3px 8px rgba(20,32,24,.12) !important; }
+.demo-tile.demo-line { background: transparent !important; color: var(--green) !important; box-shadow: inset 0 0 0 1.5px var(--line-2) !important; }
+
+
+/* ============================================================
+   毛玻璃效果（系统设置里可切换）
+   开启后：悬浮 Dock、开始菜单、控制中心、窗口标题栏 呈半透明模糊质感
+   ============================================================ */
+body[data-glass="1"] .taskbar,
+body[data-glass="1"] .start-menu,
+body[data-glass="1"] .ctrl-panel,
+body[data-glass="1"] .win-titlebar {
+  background: var(--glass-bg);
+  backdrop-filter: blur(22px) saturate(1.7);
+  -webkit-backdrop-filter: blur(22px) saturate(1.7);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+/* 悬浮 Dock 的毛玻璃单独加强：它常压在最大化窗口的内容上，
+   需要更透、更重的模糊 + 上下高光边，才能看出"隔着玻璃"的质感 */
+body[data-glass="1"] .taskbar {
+  background: var(--glass-bg, rgba(255, 255, 255, 0.58));
+  background: color-mix(in srgb, var(--paper-2) 62%, transparent);
+  backdrop-filter: blur(30px) saturate(1.9);
+  -webkit-backdrop-filter: blur(30px) saturate(1.9);
+  border-color: rgba(255, 255, 255, 0.42);
+  box-shadow:
+    0 18px 46px rgba(20, 32, 24, 0.26),
+    0 6px 14px rgba(20, 32, 24, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.22);
+}
+/* 深空大屏主题下用暗色玻璃，避免在暗背景上"发白" */
+body[data-glass="1"][data-theme="console"] .taskbar {
+  background: rgba(12, 20, 32, 0.55);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 18px 46px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(34, 211, 238, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+body[data-glass="1"] .start-menu,
+body[data-glass="1"] .ctrl-panel {
+  box-shadow: 0 22px 60px rgba(20, 32, 24, 0.34), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+}
+/* 毛玻璃下窗口标题栏的分隔线弱化，避免在模糊背景上显得生硬 */
+body[data-glass="1"] .win-titlebar { border-bottom-color: rgba(255, 255, 255, 0.14); }
+/* 关闭毛玻璃时确保不透明、文字清晰 */
+body[data-glass="0"] .taskbar,
+body[data-glass="0"] .start-menu,
+body[data-glass="0"] .ctrl-panel,
+body[data-glass="0"] .win-titlebar {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: var(--paper-2);
+}
+
+/* ============================================================
+   使用说明面板
+   ============================================================ */
+.help-backdrop { position: fixed; inset: 0; z-index: 5900; }
+.help-panel {
+  position: fixed; top: 52px; right: 14px; width: 388px;
+  max-height: calc(100vh - 160px);
+  display: flex; flex-direction: column;
+  background: var(--paper-2);
+  border: 1px solid var(--line-2); border-radius: 14px;
+  box-shadow: 0 22px 60px rgba(20, 32, 24, 0.34);
+  z-index: 6000; overflow: hidden;
+  animation: helpIn .22s cubic-bezier(0.16, 1.08, 0.32, 1);
+}
+@keyframes helpIn { from { opacity: 0; transform: translateY(-10px) scale(0.97); } to { opacity: 1; transform: none; } }
+body[data-glass="1"] .help-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px) saturate(1.7);
+  -webkit-backdrop-filter: blur(24px) saturate(1.7);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+.hp-head {
+  display: flex; align-items: center; gap: 8px; flex: none;
+  padding: 13px 15px; font-size: 13.5px; font-weight: 600;
+  font-family: var(--font-title); letter-spacing: 1px; color: var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+.hp-head svg { width: 16px; height: 16px; color: var(--green); }
+.hp-close {
+  margin-left: auto; width: 26px; height: 26px; border: none; border-radius: 7px;
+  background: transparent; color: var(--ink-2); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.hp-close:hover { background: var(--paper-3); color: var(--ink); }
+.hp-close svg { width: 11px; height: 11px; }
+.hp-body { flex: 1; overflow-y: auto; padding: 12px 16px 14px; }
+.hp-sec { margin-bottom: 15px; }
+.hp-sec:last-child { margin-bottom: 4px; }
+.hp-title {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 12px; font-weight: 600; letter-spacing: 1px; color: var(--green-2);
+  padding-bottom: 6px; margin-bottom: 7px;
+  border-bottom: 1px dashed var(--line);
+}
+.hp-title svg { width: 14px; height: 14px; }
+.hp-list { margin: 0; padding-left: 16px; }
+.hp-list li {
+  font-size: 12.5px; line-height: 1.85; color: var(--ink-2);
+  margin-bottom: 2px;
+}
+.hp-list li::marker { color: var(--line-2); }
+.hp-foot {
+  flex: none; padding: 9px 15px; font-size: 11px; color: var(--ink-3);
+  border-top: 1px solid var(--line); font-family: var(--font-note);
+  letter-spacing: .3px;
+}
