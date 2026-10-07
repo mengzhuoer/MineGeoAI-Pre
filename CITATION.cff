@@ -5,6 +5,7 @@ message: >-
 type: software
 authors:
   - name: MineGeoAI-Pre Development Team
+doi: 10.5281/zenodo.23208511
 version: 1.0.0
 date-released: "2026-10-02"
 license: MIT

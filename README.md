@@ -1,5 +1,7 @@
 # MineGeoAI-Pre 矿地智预
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23208511.svg)](https://doi.org/10.5281/zenodo.23208511)
+
 **An offline-first desktop system for multi-scenario land-use prediction in open-pit mining regions.**
 
 MineGeoAI-Pre turns open geodata (CLCD annual land cover, Copernicus DEM, Landsat-based spectral
@@ -127,8 +129,7 @@ Code: MIT license. Example data derive from open sources (CLCD, Copernicus GLO-3
 
 ### Citation
 
-A software paper is in preparation for *Environmental Modelling & Software*. Until it and the
-Zenodo archive DOI are available, cite the repository:
+A software paper is in preparation for *Environmental Modelling & Software*. Cite the Zenodo archive:
 
 ```
 MineGeoAI-Pre Development Team (2026). MineGeoAI-Pre: an offline-first desktop system for
