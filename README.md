@@ -82,6 +82,14 @@ From public sources to the aligned analysis grid, all steps are versioned script
 
 See `docs/data-pipeline.md` for the full walkthrough.
 
+### AI-assisted data acquisition
+
+Step 2 (dozens of Earth Engine exports) is fully automatable: `skills/gee-export-automation/`
+documents how to drive the GEE Code Editor with a browser automation agent — script injection
+via the ACE API, one-click **Run all** submission for every task, and shadow-DOM-safe
+verification. It is the exact workflow used to acquire this repository's index rasters, and it
+works for any AOI/year/index batch. See the folder's README for the manual fallback too.
+
 ## System requirements
 
 | Item | Minimum | Recommended |
@@ -104,6 +112,7 @@ backend/          FastAPI service, prediction engine, identification chain
 frontend/         single-page client + mobile entry (no build step)
 tools/            reproducible data-chain scripts (download, ingest, sample, release)
 example/          AOI GeoJSONs and Earth Engine export scripts
+skills/           AI-assisted workflow recipes (GEE bulk-export automation)
 docs/             data-pipeline walkthrough
 ```
 
